@@ -27,9 +27,9 @@ spec:
         server.insecure: true
       
       repositories:
-        sergey-repo:
-          url: https://github.com/4e4eh/k3s.git
-          name: 4e4eh
+        artur-repo:
+          url: https://github.com/BigKAA/youtube
+          name: bigkaa
           type: git
 
       secret:
