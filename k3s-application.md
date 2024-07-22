@@ -49,3 +49,15 @@ kubectl apply -f argocd-apps/reloader-app.yaml
 или
 
 kubectl apply -f manifests/reloader/
+
+PostgreSQL
+
+Однонодовый PostgreSQL и pgadmin.
+
+ArgoCD:
+
+kubectl apply -f argocd-apps/postgre-app.yaml
+или
+
+kubectl create ns psql
+kubectl -n psql apply -f manifests/psql/postgresql.yaml
