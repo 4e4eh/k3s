@@ -61,3 +61,13 @@ kubectl apply -f argocd-apps/postgre-app.yaml
 
 kubectl create ns psql
 kubectl -n psql apply -f manifests/psql/postgresql.yaml
+
+Redis
+
+ArgoCD:
+
+kubectl apply -f argocd-apps/redis-app.yaml
+или
+
+kubectl create ns redis
+kubectl apply -f charts/redis.yaml
