@@ -38,3 +38,14 @@ kubectl create secret generic -n argo-cd dev-ca-certs --from-file=dev-ca.pem=ca.
 Запускаем ArgoCD
 
 kubectl apply -f 02-argocd.yaml
+
+Reloader
+
+https://github.com/stakater/Reloader
+
+ArgoCD:
+
+kubectl apply -f argocd-apps/reloader-app.yaml
+или
+
+kubectl apply -f manifests/reloader/
