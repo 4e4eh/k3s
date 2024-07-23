@@ -79,3 +79,21 @@ kubectl apply -f argocd-apps/redis-app.yaml
 
 kubectl create ns redis
 kubectl apply -f charts/redis.yaml
+
+Minio
+
+ArgoCD:
+
+kubectl apply -f argocd-apps/minio-app.yaml
+или
+
+kubectl apply -f charts/minio.yaml
+Minio console
+
+ArgoCD:
+
+kubectl apply -f argocd-apps/minio-console-app.yaml
+или
+
+kubectl -n minio apply -f manifests/minio-console/minio-console.yaml
+
