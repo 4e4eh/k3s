@@ -88,6 +88,7 @@ kubectl apply -f argocd-apps/minio-app.yaml
 или
 
 kubectl apply -f charts/minio.yaml
+
 Minio console
 
 ArgoCD:
@@ -96,4 +97,16 @@ kubectl apply -f argocd-apps/minio-console-app.yaml
 или
 
 kubectl -n minio apply -f manifests/minio-console/minio-console.yaml
+
+Harbor
+
+База данных harbor
+
+ArgoCD:
+
+kubectl apply -f argocd-apps/harbor-app.yaml
+или:
+
+kubectl create ns harbor
+kubectl -n harbor apply -f charts/harbor.yaml
 
