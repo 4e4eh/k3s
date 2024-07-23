@@ -15,7 +15,7 @@ spec:
       values: |
         # initial admin password
         adminPassword: "password"
-        externalURL: https://registry.kryukov.local
+        externalURL: https://hb.radaev.local
         logLevel: info
         ipFamily:
           ipv6:
@@ -24,14 +24,14 @@ spec:
         ingress:
           core:
             ingressClassName: "system-ingress"
-            hostname: registry.kryukov.local
+            hostname: hb.radaev.local
             annotations:
               ingress.kubernetes.io/ssl-redirect: "true"
               ingress.kubernetes.io/proxy-body-size: "0"
               nginx.ingress.kubernetes.io/ssl-redirect: "true"
               nginx.ingress.kubernetes.io/proxy-body-size: "0"
               cert-manager.io/cluster-issuer: dev-ca-issuer
-              cert-manager.io/common-name: registry.kryukov.local
+              cert-manager.io/common-name: hb.radaev.local
               cert-manager.io/subject-organizations: "home dev lab"
               cert-manager.io/subject-countries: "RU"
               cert-manager.io/subject-localities: "Moscow"
@@ -47,7 +47,7 @@ spec:
           enabled: true
           resourcePolicy: "keep"
           persistentVolumeClaim:
-            registry:
+            hb:
               accessModes:
                 - ReadWriteOnce
               size: 30Gi
@@ -72,7 +72,7 @@ spec:
         jobservice:
           networkPolicy:
             enabled: false
-        registry:
+        hb:
           networkPolicy:
             enabled: false
         trivy:
@@ -86,7 +86,7 @@ spec:
         externalDatabase:
           host: postgres-np.psql.svc
           port: 5432
-          user: artur
+          user: radaev
           password: "password"
           sslmode: disable
           coreDatabase: "harbor"
@@ -98,7 +98,7 @@ spec:
           password: "qUwTt8g9it"
           coreDatabaseIndex: "0"
           jobserviceDatabaseIndex: "1"
-          registryDatabaseIndex: "2"
+          hbDatabaseIndex: "2"
           trivyAdapterDatabaseIndex: "5"
   destination:
     server: 'https://kubernetes.default.svc'
