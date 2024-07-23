@@ -1,3 +1,11 @@
+curl -sfL https://get.k3s.io | sh -s - server --default-local-storage-path "/var/k3s/storage" --data-dir "/var/k3s/data" --disable=traefik
+
+Отключаем локальный storage
+kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+
+
+curl -sfL https://get.k3s.io | sh -s - server --disable local-storage --disable=traefik
+
 Cert-manager
 
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.15.1/cert-manager.yaml
