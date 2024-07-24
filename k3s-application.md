@@ -110,3 +110,27 @@ kubectl apply -f argocd-apps/harbor-app.yaml
 kubectl create ns harbor
 kubectl -n harbor apply -f charts/harbor.yaml
 
+Gitlab
+
+Перед запуском GitLab требуется провести подготовительные действия.
+
+kubectl create ns gitlab
+Создаём сикреты, необходимые для работы gitlab:
+
+kubectl -n gitlab apply -f gitlab-secrets
+Создаём базу данных gitlab в PostgreSQL.
+
+В minio создаём buckets:
+
+gitlab-lfs-storage
+gitlab-artifacts-storage
+gitlab-uploads-storage
+gitlab-packages-storage
+gitlab-backup-storage
+gitlab-tmp-storage
+ArgoCD:
+
+Почему то, в ArgoCD чарт не работает. Поэтому ставим через helm который встроен в k3s
+
+kubectl apply -f charts/gitlab.yaml
+
