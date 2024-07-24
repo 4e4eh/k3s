@@ -98,6 +98,16 @@ kubectl apply -f argocd-apps/minio-console-app.yaml
 
 kubectl -n minio apply -f manifests/minio-console/minio-console.yaml
 
+Mail relay
+
+ArgoCD:
+
+kubectl apply -f argocd-apps/mail-relay-app.yaml
+или
+
+kubectl create ns mail-relay
+kubectl -n mail-relay apply -f manifests/mail-relay/
+
 Harbor
 
 База данных harbor
