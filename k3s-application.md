@@ -144,3 +144,35 @@ ArgoCD:
 
 kubectl apply -f charts/gitlab.yaml
 
+GitLab runner
+
+В WEB интерфейсе создай runner. Получите токен и подставьте eго значение в Secret.
+
+Tags
+global
+
+Description
+Global runner for all projects
+
+cat << EOF | kubectl apply -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dev-gitlab-runner
+  namespace: gitlab
+  labels:
+    manual: "yes"
+type: Opaque
+stringData:
+  runner-registration-token: ""
+  # тут подставляем полученный в WEB интерфейсе токен
+  runner-token: "glrt-qZeoBLU_jZ3yDsFtdT7k"
+  
+  # S3 cache parameters
+  accesskey: "admin"
+  secretkey: "password"
+EOF
+В minio добавляем бакет dev-runner-cache.
+
+kubectl apply -f charts/gitlab-runner.yaml
+
