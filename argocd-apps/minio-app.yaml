@@ -30,7 +30,7 @@ spec:
         - name: persistence.enabled
           value: "true"
         - name: persistence.size
-          value: 20Gi
+          value: 4Gi
         - name: volumePermissions.enabled
           value: "true"
 

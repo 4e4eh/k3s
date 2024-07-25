@@ -12,7 +12,7 @@ metadata:
 spec:
   repo: 'https://charts.bitnami.com/bitnami'
   chart: minio
-  version: 13.4.5
+  version: 14.6.28
   targetNamespace: minio
   valuesContent: |-
     mode: distributed
