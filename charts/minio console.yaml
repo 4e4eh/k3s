@@ -50,4 +50,4 @@ spec:
         cert-manager.io/private-key-encoding: "PKCS8"
         cert-manager.io/private-key-size: "4096"
         cert-manager.io/private-key-rotation-policy: Always
-      tls: true
+      tls: true  
