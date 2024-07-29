@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: 'https://github.com/4e4eh/k3s.git'
     path: manifests/mail-relay/
-    targetRevision: dev
+    targetRevision: main
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: mail-relay
