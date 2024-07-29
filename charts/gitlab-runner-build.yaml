@@ -2,7 +2,7 @@
 apiVersion: helm.cattle.io/v1
 kind: HelmChart
 metadata:
-  name: gitlab-runner-global
+  name: gitlab-runner-build
   namespace: gitlab
 spec:
   repo: 'https://charts.gitlab.io'
@@ -13,7 +13,6 @@ spec:
     imagePullPolicy: IfNotPresent
     revisionHistoryLimit: 3
     gitlabUrl: https://gitlab.radaev.local/
-    publicIP: "10.254.29.50"
     terminationGracePeriodSeconds: 3600
     # Количество раннеров
     concurrent: 5
@@ -46,9 +45,7 @@ spec:
           output_limit = 10000
           tls-ca-file = "/home/gitlab-runner/.gitlab-runner/certs/ca.crt"
           [runners.kubernetes]
-            #image = "kubernetes:stable"
             image = "ubuntu:22.04"
-            #privileged = true
             # helper_image = "if use custom helper"
           [[runners.kubernetes.volumes.secret]]
             # ??? не уверен, что надо
@@ -91,4 +88,5 @@ spec:
       initialDelaySeconds: 60
       periodSeconds: 20
       successThreshold: 1
-      failureThreshold: 3
+      failureThreshold: 3 
+    

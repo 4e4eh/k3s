@@ -6,6 +6,14 @@ kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storagec
 
 curl -sfL https://get.k3s.io | sh -s - server --disable local-storage --disable=traefik
 
+Установка приложений
+
+Вспомогательные компоненты
+
+PriorityClass
+
+kubectl apply -f 00-priorityclass.yaml
+
 Cert-manager
 
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.15.1/cert-manager.yaml
@@ -24,7 +32,8 @@ kubectl -n cert-manager get secrets dev-ca -o jsonpath='{.data.ca\.crt}' | base6
 Добавление сертификата CA в Ubuntu
 
 sudo mkdir /usr/local/share/ca-certificates/extra
-sudo vim /usr/local/share/ca-certificates/extra/dev-ca.crt
+sudo nvim /usr/local/share/ca-certificates/extra/dev-ca.crt
+sudo update-ca-certificates
 
 
 Ingress controller
@@ -138,6 +147,7 @@ gitlab-uploads-storage
 gitlab-packages-storage
 gitlab-backup-storage
 gitlab-tmp-storage
+
 ArgoCD:
 
 Почему то, в ArgoCD чарт не работает. Поэтому ставим через helm который встроен в k3s
@@ -166,7 +176,7 @@ type: Opaque
 stringData:
   runner-registration-token: ""
   # тут подставляем полученный в WEB интерфейсе токен
-  runner-token: "glrt-qZeoBLU_jZ3yDsFtdT7k"
+  runner-token: "glrt-bX1SnA9b8Uh5r5KCSFsq"
   
   # S3 cache parameters
   accesskey: "admin"
