@@ -68,10 +68,11 @@ spec:
           cert-manager.io/private-key-size: "4096"
           cert-manager.io/private-key-rotation-policy: Always
         tls:
-          enabled: true
+          enabled: true          утфидувЖ екгу
+
 
       hosts:
-        domain: radaev.local
+        domain: git.local
         https: true
         externalIP: 10.254.29.50
 
@@ -118,7 +119,7 @@ spec:
         tls: false
         starttls_auto: false
         openssl_verify_mode: 'none'
-        domain: "git.radaev.local"
+        domain: "git.git.local"
         address: mail-relay.mail-relay.svc
         port: 25
         authentication: "none"
@@ -126,8 +127,8 @@ spec:
           secret: 'fake-mail-password'
           key: 'password'
       email:
-        from: "noreply@gitlab.radaev.local"
-        display_name: "GitLab radaev.local"
+        from: "noreply@gitlab.git.local"
+        display_name: "GitLab.git.local"
 
     # https://docs.gitlab.com/charts/advanced/external-object-storage/#backups
     gitlab:
@@ -143,13 +144,13 @@ spec:
       webservice:
         ingress:
           annotations:
-            cert-manager.io/common-name: gitlab.radaev.local
+            cert-manager.io/common-name: gitlab.git.local
           tls:
             secretName: gitlab-tls
       kas:
         ingress:
           annotations:
-            cert-manager.io/common-name: kas.radaev.local
+            cert-manager.io/common-name: kas.git.local
           tls:
             secretName: kas-tls
     

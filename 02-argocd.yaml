@@ -48,7 +48,7 @@ spec:
       replicas: 1
       certificate:
         enabled: true
-        domain: argocd.radaev.local
+        domain: argocd.local
         renewBefore: 360h
         duration: 9125h
         issuer:
@@ -68,7 +68,7 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/ssl-redirect: "false"
         ingressClassName: "system-ingress"
-        hostname: argocd.radaev.local
+        hostname: argocd.local
         path: /
         pathType: Prefix
         tls: true

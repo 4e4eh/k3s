@@ -7,12 +7,12 @@ metadata:
 spec:
   repo: 'https://charts.bitnami.com/bitnami'
   chart: harbor
-  version: 20.0.0
+  version: 22.0.10
   targetNamespace: harbor
   valuesContent: |-
     # initial admin password
     adminPassword: "password"
-    externalURL: https://registry.radaev.local
+    externalURL: https://registry.local
     logLevel: debug
     ipFamily:
       ipv6:

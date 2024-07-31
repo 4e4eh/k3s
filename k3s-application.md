@@ -5,6 +5,18 @@ kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storagec
 
 
 curl -sfL https://get.k3s.io | sh -s - server --disable local-storage --disable=traefik
+watch kubectl get pods -A
+Не забудьте скопировать файл /etc/rancher/k3s/k3s.yaml на машины, где вы планируете обращаться к кластеру k3s
+
+Установка NFS
+# from Lens
+kubectl create ns nfs-provisioner
+
+# Check VALUES BEFORE !!!
+helm upgrade --install nfs-provisioner -n nfs-provisioner nfs-provisioner
+
+# From ALL k3s-nodes
+apt install -y nfs-common && systemctl enable rpcbind && systemctl start rpcbind
 
 Установка приложений
 
@@ -182,7 +194,7 @@ stringData:
   accesskey: "admin"
   secretkey: "password"
 EOF
-В minio добавляем бакет dev-runner-cache.
+В minio добавляем бакет dev-runner-cache
 
 kubectl apply -f charts/gitlab-runner.yaml
 

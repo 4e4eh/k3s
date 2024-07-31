@@ -4,9 +4,9 @@ kind: ConfigMap
 metadata:
   name: mail-relay-env
 data:
-  POSTFIX_SMTP_HELO_NAME: "gitlab.radaev.local"
-  POSTFIX_MYORIGIN: "gitlab.radaev.local"
-  POSTFIX_MYHOSTNAME: "gitlab.radaev.local"
+  POSTFIX_SMTP_HELO_NAME: "gitlab.local"
+  POSTFIX_MYORIGIN: "gitlab.local"
+  POSTFIX_MYHOSTNAME: "gitlab.local"
   KUBER_NETWORK: "10.43.0.1/16"
 ---
 apiVersion: v1

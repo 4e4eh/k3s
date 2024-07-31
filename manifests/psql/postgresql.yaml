@@ -38,7 +38,7 @@ metadata:
   name: postgres-secret
 type: Opaque
 stringData:
-  POSTGRES_USER: radaev
+  POSTGRES_USER:
   POSTGRES_PASSWORD: password
 --- 
 apiVersion: apps/v1
@@ -158,7 +158,7 @@ spec:
             protocol: TCP
         env:
           - name: PGADMIN_DEFAULT_EMAIL
-            value: "radaev@radaev.su"
+            value: .su"
           - name: PGADMIN_DEFAULT_PASSWORD
             value: "password"
         resources:
@@ -182,7 +182,7 @@ metadata:
   name: pgadmin
   annotations:
     cert-manager.io/cluster-issuer: dev-ca-issuer
-    cert-manager.io/common-name: pg.radaev.local
+    cert-manager.io/common-name: pg.local
     cert-manager.io/subject-organizations: "home dev lab"
     cert-manager.io/subject-countries: "RU"
     cert-manager.io/subject-localities: "Moscow"
@@ -196,7 +196,7 @@ metadata:
 spec:
   ingressClassName: system-ingress
   rules:
-    - host: pg.radaev.local
+    - host: pg.local
       http:
         paths:
           - pathType: Prefix
@@ -208,5 +208,5 @@ spec:
                   name: http
   tls:
     - hosts:
-      - pg.radaev.local
+      - pg.local
       secretName: pg-tls
