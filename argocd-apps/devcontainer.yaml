@@ -1,0 +1,72 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: artur-dev
+  namespace: argo-cd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: 'registry.local/charts'
+    chart: devcontainer
+    targetRevision: 0.1.0
+    helm:
+      values: |
+        image:
+          repository: registry.local/library/ubuntu_ssh
+          pullPolicy: Always
+          tag: "24.04"
+        user:
+          name: sergey
+          id: "1001"
+          baseHomeDirHostPath: /home
+          pubKey:
+          - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEf+UbJ+x3f4A9cK7n1Kij4QWYJQ5H4/1bsO6+ADMikA sergey@MacBook-Pro-Sergey.local"
+        service:
+          nodePort: 31022
+        applicationService:
+          port: 8080
+          nodePort: 31080
+        cacrt: |
+          -----BEGIN CERTIFICATE-----
+          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
+          -----END CERTIFICATE-----
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: ubuntu
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
