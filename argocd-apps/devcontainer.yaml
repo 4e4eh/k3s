@@ -61,6 +61,7 @@ spec:
           M2JgNNbvs6avvQn6niT42FnQ91LsvalpgdFrQa3XwkGajj4lRCFqnYobRDsqtKxf
           IQzYIPrnmZ7NAyRRT6DEOK4l+crWzKGYV/x/tArUJcdH2w==
           -----END CERTIFICATE-----
+
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: ubuntu
