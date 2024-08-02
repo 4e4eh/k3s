@@ -14,9 +14,9 @@ spec:
     helm:
       values: |
         image:
-          repository: registry.local/library/ubuntu_ssh
+          repository: registry.local/library/ubuntu
           pullPolicy: Always
-          tag: "24.04"
+          tag: "latest"
         user:
           name: sergey
           id: "1001"
