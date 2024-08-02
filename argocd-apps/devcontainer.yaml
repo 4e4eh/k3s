@@ -16,7 +16,7 @@ spec:
         image:
           repository: registry.local/library/ubuntu
           pullPolicy: Always
-          tag: "22.04"
+          tag: "24.04"
         user:
           name: sergey
           id: "1001"
