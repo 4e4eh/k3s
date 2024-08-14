@@ -131,22 +131,32 @@ https://github.com/stakater/Reloader
 
 ArgoCD:
 
+```shell
 kubectl apply -f argocd-apps/reloader-app.yaml
+```
+
 или
 
+```shell
 kubectl apply -f manifests/reloader/
+```
 
-PostgreSQL
+## PostgreSQL
 
 Однонодовый PostgreSQL и pgadmin.
 
 ArgoCD:
 
+```shell
 kubectl apply -f argocd-apps/postgre-app.yaml
+```
+
 или
 
+```shell
 kubectl create ns psql
 kubectl -n psql apply -f manifests/psql/postgresql.yaml
+```
 
 ## Redis
 
@@ -236,33 +246,36 @@ kubectl create ns gitlab
 kubectl -n gitlab apply -f gitlab-secrets
 ```
 
-Создаём базу данных gitlab в PostgreSQL.
+Создаём базу данных `gitlab` в PostgreSQL.
 
 В minio создаём buckets:
 
-gitlab-lfs-storage
-gitlab-artifacts-storage
-gitlab-uploads-storage
-gitlab-packages-storage
-gitlab-backup-storage
-gitlab-tmp-storage
+- `gitlab-lfs-storage`
+- `gitlab-artifacts-storage`
+- `gitlab-uploads-storage`
+- `gitlab-packages-storage`
+- `gitlab-backup-storage`
+- `gitlab-tmp-storage`
 
 ArgoCD:
 
 Почему то, в ArgoCD чарт не работает. Поэтому ставим через helm который встроен в k3s
 
+```shell
 kubectl apply -f charts/gitlab.yaml
+```
 
 ## GitLab runner
 
 В WEB интерфейсе создай runner. Получите токен и подставьте eго значение в Secret.
 
 Tags
-global
+`global`
 
 Description
 Global runner for all projects
 
+```shell
 cat << EOF | kubectl apply -f -
 apiVersion: v1
 kind: Secret
@@ -281,7 +294,9 @@ stringData:
   accesskey: "admin"
   secretkey: "password"
 EOF
-В minio добавляем бакет dev-runner-cache
+```
+
+В minio добавляем бакет `dev-runner-cache`
 
 ```shell
 kubectl apply -f charts/gitlab-runner.yaml
