@@ -1,15 +1,27 @@
+## Запускаем установку
+
+```shell
 curl -sfL https://get.k3s.io | sh -s - server --default-local-storage-path "/var/k3s/storage" --data-dir "/var/k3s/data" --disable=traefik
+```
 
 ## Отключаем локальный storage
 
+```shell
 kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
+```
 
-
+```shell
 curl -sfL https://get.k3s.io | sh -s - server --disable local-storage --disable=traefik
+```
+```shell
 cat /var/lib/rancher/k3s/server/node-token
+```
+```shell
 /etc/rancher/k3s/k3s.yaml
+```
 
 mkdir -p /etc/rancher/k3s/ && nvim /etc/rancher/k3s/config.yaml
+
 write-kubeconfig-mode: "0644"
 server: https://10.254.29.51:6443
 token: K1066f79453898d0c93b0652c3edd86d647c5c535ee4fa8d29e865a77dc879fd41e::server:ee5836ac00cd0b9ee75715270a019951
@@ -38,7 +50,7 @@ watch kubectl get pods -A
 Не забудьте скопировать файл /etc/rancher/k3s/k3s.yaml на машины, где вы планируете обращаться к кластеру k3s
 
 ## Установка NFS
-# From Lens
+### From Lens
 
 ```shell
 kubectl create ns nfs-provisioner
