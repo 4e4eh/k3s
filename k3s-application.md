@@ -5,6 +5,32 @@ kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storagec
 
 
 curl -sfL https://get.k3s.io | sh -s - server --disable local-storage --disable=traefik
+cat /var/lib/rancher/k3s/server/node-token
+/etc/rancher/k3s/k3s.yaml
+
+mkdir -p /etc/rancher/k3s/ && nvim /etc/rancher/k3s/config.yaml
+write-kubeconfig-mode: "0644"
+server: https://10.254.29.51:6443
+token: K1066f79453898d0c93b0652c3edd86d647c5c535ee4fa8d29e865a77dc879fd41e::server:ee5836ac00cd0b9ee75715270a019951
+tls-san:
+  - k3s.radaev.su
+cluster-init: true
+disable:
+- local-storage
+- traefik
+
+curl -sfL https://get.k3s.io | sh -
+
+curl -sfL https://get.k3s.io | K3S_TOKEN=K107ca29fde1f39507e5079b53ae77a39862a5f4853f7f46d06e416fcf3e7129f98::server:abec0e56546e310a2dab269fba148279 sh -s - server --server https://10.254.29.51:6443 --disable local-storage --disable=traefik
+
+curl -sfL https://get.k3s.io | K3S_URL=https://10.254.29.51:6443 K3S_TOKEN=K107ca29fde1f39507e5079b53ae77a39862a5f4853f7f46d06e416fcf3e7129f98::server:abec0e56546e310a2dab269fba148279 sh - 
+
+curl -sfL https://get.k3s.io | K3S_TOKEN='l%TH]c4VvCT<Xj{' sh -s - server --cluster-init --disable local-storage --disable=traefik
+
+curl -sfL https://get.k3s.io | K3S_TOKEN='l%TH]c4VvCT<Xj{' sh -s - server --server https://10.254.29.51:6443 --disable local-storage --disable=traefik
+
+
+
 watch kubectl get pods -A
 Не забудьте скопировать файл /etc/rancher/k3s/k3s.yaml на машины, где вы планируете обращаться к кластеру k3s
 
