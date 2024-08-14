@@ -1,6 +1,7 @@
 curl -sfL https://get.k3s.io | sh -s - server --default-local-storage-path "/var/k3s/storage" --data-dir "/var/k3s/data" --disable=traefik
 
-Отключаем локальный storage
+## Отключаем локальный storage
+
 kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
 
 
@@ -30,39 +31,53 @@ curl -sfL https://get.k3s.io | K3S_TOKEN='l%TH]c4VvCT<Xj{' sh -s - server --clus
 curl -sfL https://get.k3s.io | K3S_TOKEN='l%TH]c4VvCT<Xj{' sh -s - server --server https://10.254.29.51:6443 --disable local-storage --disable=traefik
 
 
-
+```shell
 watch kubectl get pods -A
+```
+
 Не забудьте скопировать файл /etc/rancher/k3s/k3s.yaml на машины, где вы планируете обращаться к кластеру k3s
 
-Установка NFS
-# from Lens
+## Установка NFS
+# From Lens
+
+```shell
 kubectl create ns nfs-provisioner
+```
 
-# Check VALUES BEFORE !!!
+## Check VALUES BEFORE !!!
+
+```shell
 helm upgrade --install nfs-provisioner -n nfs-provisioner nfs-provisioner
+```
 
-# From ALL k3s-nodes
+## From ALL k3s-nodes
 apt install -y nfs-common && systemctl enable rpcbind && systemctl start rpcbind
 
-Установка приложений
+### Установка приложений
 
-Вспомогательные компоненты
+### Вспомогательные компоненты
 
-PriorityClass
+## PriorityClass
 
+```shell
 kubectl apply -f 00-priorityclass.yaml
+```
 
-Cert-manager
+## Cert-manager
 
+```shell
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.15.1/cert-manager.yaml
+```
 
-CA и ClusterIssuer
+## CA и ClusterIssuer
 
 Для работы нам потребуется свой CA и ClusterIssuer, который будет использован для подписи различных сертификатов.
 
+```shell
 kubectl apply -f CA/ca.yaml
+```
 
-Импортируем сертификат CA в локальный файл.
+## Импортируем сертификат CA в локальный файл.
 
 kubectl -n cert-manager get secrets dev-ca -o jsonpath='{.data.ca\.crt}' | base64 -d > ca.crt
 
@@ -74,27 +89,43 @@ sudo nvim /usr/local/share/ca-certificates/extra/dev-ca.crt
 sudo update-ca-certificates
 
 
-Ingress controller
+## Ingress controller
 
 Устанавливаем чарт. Можно при помощи встроенного в k3s helm.
 
+```shell
 kubectl apply -f 01-ingress-controller.yaml
+```
+
 Проверяем:
 
+```shell
 kubectl -n ingress-nginx get all
+```
+
+```shell
 curl http://10.254.29.50
+```
 
-ArgoCD
+## ArgoCD
 
+```shell
 kubectl create ns argo-cd
+```
+
 Создадим сикрет содержащий сертификат CA.
 
+```shell
 kubectl create secret generic -n argo-cd dev-ca-certs --from-file=dev-ca.pem=ca.crt
+```
+
 Запускаем ArgoCD
 
+```shell
 kubectl apply -f 02-argocd.yaml
+```
 
-Reloader
+## Reloader
 
 https://github.com/stakater/Reloader
 
@@ -117,64 +148,94 @@ kubectl apply -f argocd-apps/postgre-app.yaml
 kubectl create ns psql
 kubectl -n psql apply -f manifests/psql/postgresql.yaml
 
-Redis
+## Redis
 
 ArgoCD:
 
+```shell
 kubectl apply -f argocd-apps/redis-app.yaml
+```
+
 или
 
+```shell
 kubectl create ns redis
 kubectl apply -f charts/redis.yaml
+```
 
-Minio
+## Minio
 
 ArgoCD:
 
+```shell
 kubectl apply -f argocd-apps/minio-app.yaml
+```
+
 или
 
+```shell
 kubectl apply -f charts/minio.yaml
+```
 
-Minio console
+## Minio console
 
 ArgoCD:
 
+```shell
 kubectl apply -f argocd-apps/minio-console-app.yaml
+```
+
 или
 
+```shell
 kubectl -n minio apply -f manifests/minio-console/minio-console.yaml
+```
 
-Mail relay
+## Mail relay
 
 ArgoCD:
 
+```shell
 kubectl apply -f argocd-apps/mail-relay-app.yaml
+```
 или
-
+```shell
 kubectl create ns mail-relay
 kubectl -n mail-relay apply -f manifests/mail-relay/
+```
 
-Harbor
+## Harbor
 
 База данных harbor
 
 ArgoCD:
 
+```shell
 kubectl apply -f argocd-apps/harbor-app.yaml
+```
+
 или:
 
+```shell
 kubectl create ns harbor
 kubectl -n harbor apply -f charts/harbor.yaml
+```
 
-Gitlab
+## Gitlab
 
 Перед запуском GitLab требуется провести подготовительные действия.
 
+
+```shell
 kubectl create ns gitlab
+```
+
 Создаём сикреты, необходимые для работы gitlab:
 
+```shell
 kubectl -n gitlab apply -f gitlab-secrets
+```
+
 Создаём базу данных gitlab в PostgreSQL.
 
 В minio создаём buckets:
@@ -192,7 +253,7 @@ ArgoCD:
 
 kubectl apply -f charts/gitlab.yaml
 
-GitLab runner
+## GitLab runner
 
 В WEB интерфейсе создай runner. Получите токен и подставьте eго значение в Secret.
 
@@ -222,5 +283,7 @@ stringData:
 EOF
 В minio добавляем бакет dev-runner-cache
 
+```shell
 kubectl apply -f charts/gitlab-runner.yaml
+```
 
