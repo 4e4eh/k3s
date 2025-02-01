@@ -7,7 +7,7 @@ metadata:
 spec:
   repo: 'https://charts.bitnami.com/bitnami'
   chart: harbor
-  version: 22.0.10
+  version: 24.1.0
   targetNamespace: harbor
   valuesContent: |-
     # initial admin password
@@ -47,15 +47,15 @@ spec:
         registry:
           accessModes:
             - ReadWriteOnce
-          size: 30Gi
+          size: 80Gi
         jobservice:
           accessModes:
             - ReadWriteOnce
-          size: 1Gi
+          size: 5Gi
         trivy:
           accessModes:
             - ReadWriteOnce
-          size: 1Gi
+          size: 5Gi
       imageChartStorage:
         type: filesystem
     volumePermissions:
