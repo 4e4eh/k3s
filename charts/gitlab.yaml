@@ -68,8 +68,7 @@ spec:
           cert-manager.io/private-key-size: "4096"
           cert-manager.io/private-key-rotation-policy: Always
         tls:
-          enabled: true          утфидувЖ екгу
-
+          enabled: true
 
       hosts:
         domain: git.local
