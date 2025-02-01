@@ -313,4 +313,3 @@ EOF
 ```shell
 kubectl apply -f charts/gitlab-runner.yaml
 ```
-test
