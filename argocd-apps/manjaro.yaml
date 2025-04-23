@@ -16,7 +16,7 @@ spec:
         image:
           repository: registry.local/library/manjaro
           pullPolicy: Always
-          tag: "latest"
+          tag: "v4"
         user:
           name: sergey
           id: "1001"
