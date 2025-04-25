@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: manjaro
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: manjaro
+  namespace: manjaro
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: manjaro
+  namespace: manjaro
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: manjaro
+  template:
+    metadata:
+      labels:
+        app: manjaro
+    spec:
+      containers:
+      - image: registry.local/library/manjaro:v4
+        securityContext:
+          privileged: true
+        imagePullPolicy: Always
+        tty: true
+        name: manjaro
+        ports:
+        - containerPort: 3389
+        resources:
+          requests:
+            cpu: "200m"
+            memory: Gi
+          limits:
+            cpu: "200m"
+            memory: 1Gi
+        volumeMounts:
+        - mountPath: /home
+          name: manjaro
+      volumes:
+      - name: manjaro
+        persistentVolumeClaim:
+          claimName: manjaro
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: manjaro-service
+  namespace: manjaro
+spec:
+  selector:
+    app: manjaro
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 3389
+      targetPort: 3389
+      nodePort: 31095
