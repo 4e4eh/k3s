@@ -13,12 +13,10 @@ spec:
     targetRevision: 0.1.0
     helm:
       values: |
-        securityContext:
-          privileged: true
         image:
           repository: registry.local/library/manjaro
           pullPolicy: Always
-          tag: "v4"
+          tag: "v4
         user:
           name: sergey
           id: "1001"
